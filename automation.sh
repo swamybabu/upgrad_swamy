@@ -44,28 +44,5 @@ tar_n_copy_logs () {
 
 }
 
-check_inventory_html () {
 
-  if [ -e /var/www/html/inventory.html ]
-  then
-        echo "Inventory exists"
-  else
-        touch /var/www/html/inventory.html
-        echo "<b>Log Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date Created &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size</b>" >> /var/www/html/inventory.html
-  fi
-
-  echo "<br>httpd-logs &nbsp;&nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp;&nbsp; `du -h /tmp/${myname}-httpd-logs-${timestamp}.tar | awk '{print $1}'`" >> /var/www/html/inventory.html
-}
-
-create_cron_job () {
-  if [ -e /etc/cron.d/automation ]
-  then
-        echo "Cron job exists"
-  else
-        touch /etc/cron.d/automation
-        echo "0 0 * * * root /root/upgrad_swamy/Automation.sh" > /etc/cron.d/automation
-        echo "Cron job added"
-  fi
-}
-
-install_pkgs && enable_n_start_service && tar_n_copy_logs && check_inventory_html && create_cron_job
+install_pkgs && enable_n_start_service && tar_n_copy_logs
