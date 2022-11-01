@@ -31,9 +31,9 @@ enable_n_start_service () {
 
 }
 
-compress_n_copy_logs () {
+tar_n_copy_logs () {
 
-  echo "Compressing logs and storing into /tmp"
+  echo "Tar bundle the logs and storing into /tmp"
   name="swamy"
   timestamp=$(date '+%d%m%Y-%H%M%S')
   s3_bucket="upgrad-venkataswamybabub/var/logs"
@@ -68,4 +68,4 @@ create_cron_job () {
   fi
 }
 
-install_pkgs && enable_n_start_service && compress_n_copy_logs && check_inventory_html && create_cron_job
+install_pkgs && enable_n_start_service && tar_n_copy_logs && check_inventory_html && create_cron_job
