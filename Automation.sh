@@ -3,6 +3,7 @@
 install_pkgs () {
 
   sudo apt-get update -y
+  sudo apt install awscli
   sudo apt-get install apache2 -y
   
 }
@@ -33,12 +34,13 @@ enable_n_start_service () {
 compress_n_copy_logs () {
 
   echo "Compressing logs and storing into /tmp"
-  timestamp=$(date +%s)
+  name="swamy"
+  timestamp=$(date '+%d%m%Y-%H%M%S')
   s3_bucket="upgrad-venkataswamybabub/var/logs"
   cd /var/log/apache2/
   tar -cvf /tmp/httpd-logs-${timestamp}.tar *.log
   echo "Copying logs to s3"
-  aws s3 cp /tmp/httpd-logs-${timestamp}.tar s3://${s3_bucket}/httpd-logs-${timestamp}.tar
+  aws s3 cp /tmp/${name}-httpd-logs-${timestamp}.tar s3://${s3_bucket}/${name}-httpd-logs-${timestamp}.tar
 
 }
 
